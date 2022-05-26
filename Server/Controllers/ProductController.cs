@@ -30,5 +30,30 @@ namespace CofeShop.Server.Controllers
         {
             return await applicationDbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        [HttpPost]
+        public decimal CalcTotalPrice(Order order)
+        {
+            decimal totalPrice = 0;
+            decimal itemPrice = 0;
+           
+                itemPrice = applicationDbContext.Products.FirstOrDefaultAsync(x => x.Id == order.ProductId).Result.Price;
+                totalPrice += itemPrice * order.Count;
+
+            
+            return totalPrice;
+        }
+        //public decimal CalcTotalPrice(List<Order> orders)
+        //{
+        //    decimal totalPrice = 0;
+        //    decimal itemPrice = 0;
+        //    foreach (Order order in orders)
+        //    {
+        //        itemPrice = applicationDbContext.Products.FirstOrDefaultAsync(x => x.Id == order.ProductId).Result.Price;
+        //        totalPrice += itemPrice * order.Count;
+
+        //    }
+        //    return totalPrice;
+        //}
     }
 }

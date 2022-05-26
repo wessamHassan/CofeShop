@@ -1,13 +1,10 @@
-﻿@page "/products/{Name}"
-
+﻿@page "/productsView"
+<h3>Products</h3>
 @inject HttpClient http
-@inject IJSRuntime JsRuntime
-
-<h3 style="align-content:center">Welcome @Name !</h3>
 <div class="container">
-    <EditForm Model="@order" OnValidSubmit="@CalcPrice">
+   
         <div class="row">
-            
+
             @if (products == null || products.Length == 0)
             {
                 <p><em>Loading...</em></p>
@@ -25,8 +22,8 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <h5 class="card-title">@product.Name</h5>
-
+                                            <h5 class="card-title">@product.Name</h5> 
+                                            
                                         </td>
                                     </tr>
                                     <tr>
@@ -41,21 +38,10 @@
                                             </p>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <select id="cont" @onchange="CountSelected">
-                                                @for (int i = 0; i < 10; i++)
-                                                {
-                                                    <option value="@i-@product.Price">@i</option>
-
-                                                }
-
-                                            </select>
-                                        </td>
-                                    </tr>
+                                    
                                 </table>
-
-
+                              
+                               
                             </div>
                         </div>
                     </div>
@@ -65,14 +51,14 @@
 
 
         </div>
+        
+       
 
-        <button style="background-color :#a83d0c" type="submit" class="btn btn-success">Total Price</button>
-
-    </EditForm>
+    
 </div>
 
 @code{
-    [Parameter] public string Name { get; set; }
+
     List<Order> orders = new List<Order>();
     Product[] products { get; set; }
     Order order = new Order();
@@ -83,31 +69,6 @@
     {
         products = await http.GetFromJsonAsync<Product[]>("api/Product");
     }
-    void CountSelected(ChangeEventArgs e)
-    {
-
-        string selected = e.Value.ToString();
-        string[] splitedSelect;
-        if (!string.IsNullOrEmpty(selected))
-        {
-            splitedSelect = selected.Split('-');
-            decimal price = Decimal.Parse(splitedSelect[0]) * Decimal.Parse(splitedSelect[1]);
-            prices.Add(price);
-            Console.WriteLine("single: " + price);
-        }
-
-    }
-
-    async Task CalcPrice()
-    {
-        decimal total = 0;
-        foreach (decimal x in prices)
-        {
-            total += x;
-        }
-        await JsRuntime.InvokeVoidAsync("alert", "total Price = "+ total);
-
-
-    }
+   
 
 }

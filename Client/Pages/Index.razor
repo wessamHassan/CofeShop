@@ -11,7 +11,7 @@
 
        
     </style>
-<h1> Welcome to Cpresso Cafe Shop.</h1>
+<h1 style="align-content:center"> Welcome to Cpresso Cafe </h1>
 
 <table >
     <tr>
@@ -89,6 +89,7 @@
         {
 
             var x = await http.GetFromJsonAsync<User>($"api/User?email={user.Email}&password={user.Password}");
+            
             if (x == null)
             {
                 await JsRuntime.InvokeVoidAsync("alert", "Wrong Email / Password !"); // Alert
@@ -96,7 +97,7 @@
             }
             else
             {
-                navigationManager.NavigateTo("/products");
+                navigationManager.NavigateTo("/products/"+x.Name);
             }
         }
         catch (Exception ex)

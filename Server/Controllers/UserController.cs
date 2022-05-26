@@ -22,7 +22,9 @@ namespace CofeShop.Server.Controllers
         [HttpGet]
         public async Task<ActionResult<User>> Get(string email, string password)
         {
-            return await applicationDbContext.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
+            User user = await applicationDbContext.Users.FirstOrDefaultAsync(x => x.Email == email && x.Password == password);
+            
+            return user;
            
         }
 

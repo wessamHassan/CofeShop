@@ -3,7 +3,7 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime JsRuntime
 
-<h3>UserLogin</h3>
+<h3>Subscribe</h3>
 
 
 
@@ -61,7 +61,7 @@
         {
             
             await http.PostAsJsonAsync<User>($"api/User", user);
-            navigationManager.NavigateTo("/products");
+            navigationManager.NavigateTo("/products/"+user.Name);
 
         }
         catch (Exception ex)
