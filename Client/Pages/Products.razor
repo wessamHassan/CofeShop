@@ -1,0 +1,44 @@
+﻿@page "/products"
+<h3>Products</h3>
+@inject HttpClient http
+<div class="container">
+    <div class="row">
+        @if (products == null || products.Length == 0)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            foreach (var product in products)
+            {
+                <div class="col-sm-4 p-2">
+                    <div class="card">
+                        <div class="d-flex justify-content-center p-2">
+                            <img src="@product.ImageUrl" height="100" width="100" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@product.Name</h5>
+                            <p class="card-text">@product.Description.Substring(0, Math.Min(50, product.Description.Length))  </p>
+                            <p class="text-secondary text-center h2 font-weight-bold">
+                                @product.Price.ToString("C")
+                            </p>
+                            <a href="#" class="btn btn-danger w-100">Add</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+
+@code{
+
+    // List<Product> _products = new List<Product>();
+    Product[] products { get; set; }
+
+   
+    protected override async Task OnInitializedAsync()
+    {
+        products = await http.GetFromJsonAsync<Product[]>("api/Product");
+    }
+}

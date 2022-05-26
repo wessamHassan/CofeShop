@@ -1,0 +1,12 @@
+C:\G\AWS_Project\CofeShop\Shared\bin\Debug\net5.0\CofeShop.Shared.deps.json
+C:\G\AWS_Project\CofeShop\Shared\bin\Debug\net5.0\CofeShop.Shared.dll
+C:\G\AWS_Project\CofeShop\Shared\bin\Debug\net5.0\ref\CofeShop.Shared.dll
+C:\G\AWS_Project\CofeShop\Shared\bin\Debug\net5.0\CofeShop.Shared.pdb
+C:\G\AWS_Project\CofeShop\Shared\obj\Debug\net5.0\CofeShop.Shared.csproj.AssemblyReference.cache
+C:\G\AWS_Project\CofeShop\Shared\obj\Debug\net5.0\CofeShop.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\G\AWS_Project\CofeShop\Shared\obj\Debug\net5.0\CofeShop.Shared.AssemblyInfoInputs.cache
+C:\G\AWS_Project\CofeShop\Shared\obj\Debug\net5.0\CofeShop.Shared.AssemblyInfo.cs
+C:\G\AWS_Project\CofeShop\Shared\obj\Debug\net5.0\CofeShop.Shared.csproj.CoreCompileInputs.cache
+C:\G\AWS_Project\CofeShop\Shared\obj\Debug\net5.0\CofeShop.Shared.dll
+C:\G\AWS_Project\CofeShop\Shared\obj\Debug\net5.0\ref\CofeShop.Shared.dll
+C:\G\AWS_Project\CofeShop\Shared\obj\Debug\net5.0\CofeShop.Shared.pdb

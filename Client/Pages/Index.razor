@@ -1,0 +1,128 @@
+﻿@page "/"
+@inject HttpClient http
+@inject NavigationManager navigationManager
+@inject IJSRuntime JsRuntime
+    <style>
+        
+        p{
+            font-size:large;
+            color:black
+        }
+
+       
+    </style>
+<h1> Welcome to Cpresso Cafe Shop.</h1>
+
+<table >
+    <tr>
+        <td>
+            <img src="img/Background_Coffee.jpg" width="300" height="200"/>
+        </td>
+        <td>
+            <img src="img/Background_Breakfast.jpg" width="300" height="200" />
+        </td>
+        <td>
+            <img src="img/Background_Lunch.jpg" width="300" height="200" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>
+                Welcome to Cpresso!<br />
+                Delicious cofee<br/>
+                Home-cooked breakfast and lunch <br />
+            </p>
+        </td>
+
+        <td>
+            <EditForm Model="@user" OnValidSubmit="@Login">
+                <DataAnnotationsValidator />
+                <table class="table">
+                    <tr>
+                        <td>
+                            <label>Email: </label>
+                        </td>
+                        <td>
+                            <InputText @bind-Value="@user.Email"></InputText>
+                            <ValidationMessage For="@(() => user.Email)" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Password: </label>
+                        </td>
+                        <td>
+                            <InputText @bind-Value="@user.Password" type="password"></InputText>
+                            <ValidationMessage For="@(() => user.Password)" />
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <button style="background-color :#a83d0c" type="submit" class="btn btn-primary">Login</button>
+                            <button style="background-color :#a83d0c" class="btn btn-primary" onclick="location.href='/login'">Subscribe</button>
+                        </td>
+                       
+
+                    </tr>
+
+                </table>
+            </EditForm>
+        </td>
+    </tr>
+    <tr>
+
+        <td></td>
+
+    </tr>
+  
+</table>
+
+
+@code {
+    User user = new User();
+
+    async Task Login()
+    {
+
+        try
+        {
+
+            var x = await http.GetFromJsonAsync<User>($"api/User?email={user.Email}&password={user.Password}");
+            if (x == null)
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "Wrong Email / Password !"); // Alert
+
+            }
+            else
+            {
+                navigationManager.NavigateTo("/products");
+            }
+        }
+        catch (Exception ex)
+        {
+
+            await JsRuntime.InvokeVoidAsync("alert", "Wrong Email / Password !"); // Alert
+        }
+    }
+
+    private void Subscribe()
+    {
+
+        try
+        {
+
+            
+            navigationManager.NavigateTo("/login");
+
+        }
+        catch (Exception ex)
+        {
+
+
+        }
+    }
+
+}
+
+

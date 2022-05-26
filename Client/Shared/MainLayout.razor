@@ -1,0 +1,56 @@
+﻿@inherits LayoutComponentBase
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    
+    <div class="page">
+        <div style="background-image:none; background-color: #a83d0c; " class="sidebar">
+            <NavMenu />
+        </div>
+
+        <div class="main">
+            <div style="background-image:none; background-color: #a83d0c; " class="top-row px-4">
+                <a style="color:white" href="/aboutus" target="_blank" class="ml-md-auto">About us</a>
+            </div>
+
+            <div class="content px-4">
+                @Body
+            </div>
+            <footer style="text-align: left; padding: 3px;">
+                <table>
+                    <tr>
+                        <td>
+                            <i class='fas fa-map-marker-alt'></i> GamlaStan,Stockholom
+                        </td>
+                        
+                        
+                    </tr>
+                    <tr>
+                        <td >  
+                                <i class='fas fa-phone'></i> 0123456789 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td >
+                            <i class='fas fa-coffee'></i>
+                            <i class='fas fa-utensils'></i>
+                            <i class='fas fa-wheelchair'></i>
+                        </td>
+                        
+                    </tr>
+                   <tr>
+                       <td style="text-align:right">
+
+                           © 2022, Avengers Team
+                           <a href="https://www.facebook.com/" class="fa fa-facebook"></a>
+                           <a href="https://twitter.com/" class="fa fa-twitter"></a>
+                           <a href="https://www.instagram.com/" class="fa fa-instagram"></a>
+
+                       </td>
+                   </tr>
+                    
+                   
+                </table>
+            </footer>
+        </div>
+    </div>
