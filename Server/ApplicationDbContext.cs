@@ -16,5 +16,7 @@ namespace CofeShop.Server
 
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
+
+        public DbSet<OrderDto> Orders { get; set; }
     }
 }

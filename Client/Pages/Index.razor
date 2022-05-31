@@ -60,7 +60,7 @@
                     <tr>
                         <td colspan="2">
                             <button style="background-color :#a83d0c" type="submit" class="btn btn-primary">Login</button>
-                            <button style="background-color :#a83d0c" class="btn btn-primary" onclick="location.href='/login'">Subscribe</button>
+                            <button style="background-color :#a83d0c" class="btn btn-primary" @onclick="Subscribe">Subscribe</button>
                         </td>
                        
 
@@ -80,6 +80,9 @@
 
 
 @code {
+    [CascadingParameter]
+    public MainLayout Layout { get; set; }
+
     User user = new User();
 
     async Task Login()
@@ -88,16 +91,17 @@
         try
         {
 
-            var x = await http.GetFromJsonAsync<User>($"api/User?email={user.Email}&password={user.Password}");
-            
-            if (x == null)
+            var loginUser = await http.GetFromJsonAsync<User>($"api/User?email={user.Email}&password={user.Password}");
+
+            if (loginUser == null)
             {
                 await JsRuntime.InvokeVoidAsync("alert", "Wrong Email / Password !"); // Alert
 
             }
             else
             {
-                navigationManager.NavigateTo("/products/"+x.Name);
+                Layout.Name = loginUser.Name;
+                navigationManager.NavigateTo("/products/"+ loginUser.Name);
             }
         }
         catch (Exception ex)
@@ -113,8 +117,8 @@
         try
         {
 
-            
-            navigationManager.NavigateTo("/login");
+
+            navigationManager.NavigateTo("/register");
 
         }
         catch (Exception ex)

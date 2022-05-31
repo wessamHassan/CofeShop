@@ -1,0 +1,90 @@
+﻿@page "/orderView/{Name}"
+
+@inject HttpClient http
+@inject NavigationManager navigationManager
+
+<h3 style="align-content:center"> @Name Order(s)!</h3>
+
+<div class="container">
+
+    <div class="row">
+
+        @if (orders == null || orders.Length == 0)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            <div>
+                <table class="table-bordered">
+                    <tr>
+                        <th>Item name</th>
+                        <th>Unit Price</th>
+                        <th>Count</th>
+                        <th>Total price</th>
+                    </tr>
+                    @foreach (var order in orders)
+                    {
+                        <tr>
+
+                            <td>
+                                @order.ItemName
+
+                            </td>
+                            <td>
+                                @order.UnitPrice
+                            </td>
+                            <td>
+                                @order.CountPerItem
+                            </td>
+                            <td>
+                                @order.TotalPricePerItem
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+            </div>
+
+
+        
+        }
+
+
+
+    </div>
+    <div class="row">
+        <h5 class="card-title">Total Price : @total SEK</h5>
+    </div>
+    <div class="row">
+        <button style="background-color :#a83d0c" class="btn btn-success" @onclick="Delete">Close</button>
+    </div>
+
+</div>
+
+@code{
+
+    [Parameter] public string Name { get; set; }
+
+    OrderDto[] orders { get; set; }
+    decimal total = 0;
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await http.GetFromJsonAsync<OrderDto[]>("api/Order");
+
+        foreach(var order in orders)
+        {
+            total += order.TotalPricePerItem;
+        }
+
+    }
+    async Task Delete()
+    {
+        foreach (var order in orders)
+            await http.DeleteAsync($"api/Order/{order.Id}");
+        navigationManager.NavigateTo("/products/"+Name);
+    }
+
+}

@@ -1,3 +1,4 @@
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -27,6 +28,7 @@ namespace CofeShop.Server
                 ("DefaultConnection")));
             services.AddControllersWithViews();
             services.AddRazorPages();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

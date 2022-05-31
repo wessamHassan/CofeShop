@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿@page "/register"
 @inject HttpClient http
 @inject NavigationManager navigationManager
 @inject IJSRuntime JsRuntime
@@ -50,23 +50,26 @@
 </EditForm>
 
 @code {
+    [CascadingParameter]
+    public MainLayout Layout { get; set; }
     User user = new User();
 
-   
+
 
     async Task Register()
     {
 
         try
         {
-            
+
             await http.PostAsJsonAsync<User>($"api/User", user);
+            Layout.Name = user.Name;
             navigationManager.NavigateTo("/products/"+user.Name);
 
         }
         catch (Exception ex)
         {
-            
+
 
         }
     }

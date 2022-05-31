@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace CofeShop.Server
 {
@@ -16,6 +19,8 @@ namespace CofeShop.Server
         {
             CreateHostBuilder(args)
                 .Build().Run();
+
+           
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

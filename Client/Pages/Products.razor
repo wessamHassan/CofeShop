@@ -2,110 +2,145 @@
 
 @inject HttpClient http
 @inject IJSRuntime JsRuntime
+@inject NavigationManager navigationManager
 
+@if (Name.Equals("-"))
+{
+    <p><em>Please Login First...</em></p>
+}
+else
+{
 <h3 style="align-content:center">Welcome @Name !</h3>
 <div class="container">
-    <EditForm Model="@order" OnValidSubmit="@CalcPrice">
-        <div class="row">
-            
-            @if (products == null || products.Length == 0)
+
+    <div class="row">
+
+
+        @if (products == null || products.Length == 0)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else
+        {
+            foreach (var product in products)
             {
-                <p><em>Loading...</em></p>
-            }
-            else
-            {
-                foreach (var product in products)
-                {
-                    <div class="col-sm-4 p-2">
-                        <div class="card">
-                            <div class="d-flex justify-content-center p-2">
-                                <img src="img/@product.ImageUrl" height="100" width="100" />
-                            </div>
-                            <div class="card-body">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <h5 class="card-title">@product.Name</h5>
+                <div class="col-sm-4 p-2">
+                    <div class="card">
+                        <div class="d-flex justify-content-center p-2">
+                            <img src="img/@product.ImageUrl" height="100" width="100" />
+                        </div>
+                        <div class="card-body">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <h5 class="card-title">@product.Name</h5>
 
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="card-text">@product.Description </p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="text-secondary text-center h2 font-weight-bold">
-                                                @product.Price.ToString("C")
-                                            </p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <select id="cont" @onchange="CountSelected">
-                                                @for (int i = 0; i < 10; i++)
-                                                {
-                                                    <option value="@i-@product.Price">@i</option>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="card-text">@product.Description </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p class="text-secondary text-center h2 font-weight-bold">
+                                            @product.Price SEK
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <select id="cont" @onchange="CountSelected">
+                                            @for (int i = 0; i < 10; i++)
+                                            {
+                                                <option value="@i-@product.Id">@i</option>
 
-                                                }
+                                            }
 
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </table>
 
 
-                            </div>
                         </div>
                     </div>
-                }
+                </div>
             }
+        }
 
 
 
-        </div>
 
-        <button style="background-color :#a83d0c" type="submit" class="btn btn-success">Total Price</button>
+    </div>
 
-    </EditForm>
+    <button style="background-color :#a83d0c" class="btn btn-success" @onclick="CalcPrice">Total Price</button>
+
+
 </div>
-
+}
 @code{
-    [Parameter] public string Name { get; set; }
-    List<Order> orders = new List<Order>();
-    Product[] products { get; set; }
-    Order order = new Order();
-    List<decimal> prices = new List<decimal>();
+        [CascadingParameter]
+        public MainLayout Layout { get; set; }
 
+        [Parameter] public string Name { get; set; }
+        List<Order> orders = new List<Order>();
+        Product[] products { get; set; }
+        Order order;
+        List<decimal> prices = new List<decimal>();
+        bool orderDone = false;
+    //List<OrderDto> ordersList;
 
     protected override async Task OnInitializedAsync()
     {
+        if (Name.Equals("-"))
+            Name = Layout.Name;
+        else
+            Layout.Name = Name;
+        //Console.WriteLine("xxxx" + Layout.Name);
         products = await http.GetFromJsonAsync<Product[]>("api/Product");
     }
     void CountSelected(ChangeEventArgs e)
     {
+        order = new Order();
 
         string selected = e.Value.ToString();
-        string[] splitedSelect;
+
         if (!string.IsNullOrEmpty(selected))
         {
-            splitedSelect = selected.Split('-');
-            decimal price = Decimal.Parse(splitedSelect[0]) * Decimal.Parse(splitedSelect[1]);
-            prices.Add(price);
-            Console.WriteLine("single: " + price);
+            string[] splitedSelect = selected.Split('-');
+
+            int count = int.Parse(splitedSelect[0]);
+            int pid = int.Parse(splitedSelect[1]);
+
+
+            var temp = orders.FirstOrDefault(x => x.ProductId == pid);
+            if (temp != null)
+            {
+                orders.Remove(temp);
+            }
+           
+            order.Count = count;
+            order.ProductId = pid;
+            orders.Add(order);
+            
+
+
+
+
         }
 
     }
 
     async Task CalcPrice()
     {
-        decimal total = 0;
-        foreach (decimal x in prices)
+
+        if (orders.Count > 0)
         {
-            total += x;
+            await http.PostAsJsonAsync("api/Order", orders);
+            navigationManager.NavigateTo("/orderView/" + Name);
         }
-        await JsRuntime.InvokeVoidAsync("alert", "total Price = "+ total);
 
 
     }
