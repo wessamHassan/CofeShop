@@ -11,123 +11,136 @@
 
        
     </style>
-<h1 style="align-content:center"> Welcome to Cpresso Cafe </h1>
+<h1 class="text-center"> Welcome to Cpresso Cafe </h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <table>
+                <tr>
+                    <td>
+                        <img src="img/Background_Coffee.jpg" width="300" height="200" />
+                    </td>
+                    <td>
+                        <img src="img/Background_Breakfast.jpg" width="300" height="200" />
+                    </td>
+                    <td>
+                        <img src="img/Background_Lunch.jpg" width="300" height="200" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8">
+            <table>
+                <tr>
+                    <td>
+                        <h5>
+                            Cpresso is based in Gamla Stan, Stockholm.<br />
+                            It was founded by six coffee enthusiasts and has grown to be a team of talented coffee professionals, with a wealth of experience and passion for what we do.<br />
+                            Cpresso remains a gathering place for locals and a destination for guests from around the world, constantly experimenting with new ingredients and techniques.<br />
+                            Yet we always stay true to our philosophy: Your Coffee, Your Way.
+                        </h5>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <table>
+                <tr>
+                    <td>
+                        <EditForm Model="@user" OnValidSubmit="@Login">
+                            <DataAnnotationsValidator />
+                            <table class="table">
+                                <tr>
+                                    <td>
+                                        <label>Email: </label>
+                                    </td>
+                                    <td>
+                                        <InputText @bind-Value="@user.Email"></InputText>
+                                        <ValidationMessage For="@(() => user.Email)" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <label>Password: </label>
+                                    </td>
+                                    <td>
+                                        <InputText @bind-Value="@user.Password" type="password"></InputText>
+                                        <ValidationMessage For="@(() => user.Password)" />
+                                    </td>
 
-<table >
-    <tr>
-        <td>
-            <img src="img/Background_Coffee.jpg" width="300" height="200"/>
-        </td>
-        <td>
-            <img src="img/Background_Breakfast.jpg" width="300" height="200" />
-        </td>
-        <td>
-            <img src="img/Background_Lunch.jpg" width="300" height="200" />
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <p>
-                Welcome to Cpresso!<br />
-                Delicious cofee<br/>
-                Home-cooked breakfast and lunch <br />
-            </p>
-        </td>
-
-        <td>
-            <EditForm Model="@user" OnValidSubmit="@Login">
-                <DataAnnotationsValidator />
-                <table class="table">
-                    <tr>
-                        <td>
-                            <label>Email: </label>
-                        </td>
-                        <td>
-                            <InputText @bind-Value="@user.Email"></InputText>
-                            <ValidationMessage For="@(() => user.Email)" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Password: </label>
-                        </td>
-                        <td>
-                            <InputText @bind-Value="@user.Password" type="password"></InputText>
-                            <ValidationMessage For="@(() => user.Password)" />
-                        </td>
-
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <button style="background-color :#a83d0c" type="submit" class="btn btn-primary">Login</button>
-                            <button style="background-color :#a83d0c" class="btn btn-primary" @onclick="Subscribe">Subscribe</button>
-                        </td>
-                       
-
-                    </tr>
-
-                </table>
-            </EditForm>
-        </td>
-    </tr>
-    <tr>
-
-        <td></td>
-
-    </tr>
-  
-</table>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <button style="background-color :#a83d0c" type="submit" class="btn btn-primary">Login</button>
+                                        <button style="background-color :#a83d0c" class="btn btn-primary" @onclick="Subscribe">Subscribe</button>
+                                    </td>
 
 
-@code {
-    [CascadingParameter]
-    public MainLayout Layout { get; set; }
+                                </tr>
 
-    User user = new User();
+                            </table>
+                        </EditForm>
+                    </td>
+                </tr>
 
-    async Task Login()
-    {
 
-        try
-        {
+            </table>
 
-            var loginUser = await http.GetFromJsonAsync<User>($"api/User?email={user.Email}&password={user.Password}");
+        </div>
+    </div>
+        
+    </div>
+        @code {
+            [CascadingParameter]
+            public MainLayout Layout { get; set; }
 
-            if (loginUser == null)
+            User user = new User();
+
+            async Task Login()
             {
-                await JsRuntime.InvokeVoidAsync("alert", "Wrong Email / Password !"); // Alert
 
+                try
+                {
+
+                    var loginUser = await http.GetFromJsonAsync<User>($"api/User?email={user.Email}&password={user.Password}");
+
+                    if (loginUser == null)
+                    {
+                        await JsRuntime.InvokeVoidAsync("alert", "Wrong Email / Password !"); // Alert
+
+                    }
+                    else
+                    {
+                        Layout.Name = loginUser.Name;
+                        navigationManager.NavigateTo("/products/" + loginUser.Name);
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    await JsRuntime.InvokeVoidAsync("alert", "Wrong Email / Password !"); // Alert
+                }
             }
-            else
+
+            private void Subscribe()
             {
-                Layout.Name = loginUser.Name;
-                navigationManager.NavigateTo("/products/"+ loginUser.Name);
+
+                try
+                {
+
+
+                    navigationManager.NavigateTo("/register");
+
+                }
+                catch (Exception ex)
+                {
+
+
+                }
             }
-        }
-        catch (Exception ex)
-        {
-
-            await JsRuntime.InvokeVoidAsync("alert", "Wrong Email / Password !"); // Alert
-        }
-    }
-
-    private void Subscribe()
-    {
-
-        try
-        {
-
-
-            navigationManager.NavigateTo("/register");
 
         }
-        catch (Exception ex)
-        {
-
-
-        }
-    }
-
-}
 
 
