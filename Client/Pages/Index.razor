@@ -51,36 +51,38 @@
                     <td>
                         <EditForm Model="@user" OnValidSubmit="@Login">
                             <DataAnnotationsValidator />
-                            <table class="table">
-                                <tr>
-                                    <td>
-                                        <label>Email: </label>
-                                    </td>
-                                    <td>
-                                        <InputText @bind-Value="@user.Email"></InputText>
-                                        <ValidationMessage For="@(() => user.Email)" />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <label>Password: </label>
-                                    </td>
-                                    <td>
-                                        <InputText @bind-Value="@user.Password" type="password"></InputText>
-                                        <ValidationMessage For="@(() => user.Password)" />
-                                    </td>
+                            <div class="align-content-center border">
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td>
+                                            <label>Email: </label>
+                                        </td>
+                                        <td>
+                                            <InputText @bind-Value="@user.Email"></InputText>
+                                            <ValidationMessage For="@(() => user.Email)" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <label>Password: </label>
+                                        </td>
+                                        <td>
+                                            <InputText @bind-Value="@user.Password" type="password"></InputText>
+                                            <ValidationMessage For="@(() => user.Password)" />
+                                        </td>
 
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <button style="background-color :#a83d0c" type="submit" class="btn btn-primary">Login</button>
-                                        <button style="background-color :#a83d0c" class="btn btn-primary" @onclick="Subscribe">Subscribe</button>
-                                    </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <button style="background-color :#a83d0c" type="submit" class="btn btn-primary">Login</button>
+                                            <button style="background-color :#a83d0c" class="btn btn-primary" @onclick="Subscribe">Subscribe</button>
+                                        </td>
 
 
-                                </tr>
+                                    </tr>
 
-                            </table>
+                                </table>
+                             </div>
                         </EditForm>
                     </td>
                 </tr>
