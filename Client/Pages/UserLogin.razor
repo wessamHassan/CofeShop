@@ -5,67 +5,67 @@
 
 <h1 class="text-center">Subscribe</h1>
 
+<div>
 
-
-<div class="container">
-    <div class="col-md-12">
-        <table>
-            <tr>
-                <td class="text-center">
-                    <img src="img/Mocha Frappé Latte.jpg" width="400" height="400" />
-                </td>
-                
-            </tr>
-        </table>
-    </div>
-</div>
-<EditForm Model="@user" OnValidSubmit="@Register">
-    <DataAnnotationsValidator />
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 align-content-center border">
-                <table class="table table-borderless">
-                    <tr>
-                        <td>
-                            <label>Email: </label>
-                        </td>
-                        <td>
-                            <InputText @bind-Value="@user.Email"></InputText>
-                            <ValidationMessage For="@(() => user.Email)" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Name: </label>
-                        </td>
-                        <td>
-                            <InputText @bind-Value="@user.Name"></InputText>
-                            <ValidationMessage For="@(() => user.Email)" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>Password: </label>
-                        </td>
-                        <td>
-                            <InputText @bind-Value="@user.Password" type="password"></InputText>
-                            <ValidationMessage For="@(() => user.Password)" />
-                        </td>
+        <div class="col-md-12">
+            <table>
+                <tr>
+                    <td class="text-center">
+                        <img src="img/Mocha Frappé Latte.jpg" width="400" height="400" />
+                    </td>
 
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <button style="background-color :#a83d0c" type="submit" class="btn btn-success">Register</button>
-                        </td>
-
-                    </tr>
-
-                </table>
-            </div>
+                </tr>
+            </table>
         </div>
     </div>
-</EditForm>
+    <EditForm Model="@user" OnValidSubmit="@Register">
+        <DataAnnotationsValidator />
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 align-content-center border">
+                    <table class="table table-borderless">
+                        <tr>
+                            <td>
+                                <label>Email: </label>
+                            </td>
+                            <td>
+                                <InputText @bind-Value="@user.Email"></InputText>
+                                <ValidationMessage For="@(() => user.Email)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Name: </label>
+                            </td>
+                            <td>
+                                <InputText @bind-Value="@user.Name"></InputText>
+                                <ValidationMessage For="@(() => user.Email)" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>Password: </label>
+                            </td>
+                            <td>
+                                <InputText @bind-Value="@user.Password" type="password"></InputText>
+                                <ValidationMessage For="@(() => user.Password)" />
+                            </td>
 
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button style="background-color :#a83d0c" type="submit" class="btn btn-success">Register</button>
+                            </td>
+
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </EditForm>
+</div>
 @code {
     [CascadingParameter]
     public MainLayout Layout { get; set; }
