@@ -29,10 +29,16 @@ namespace CofeShop.Server.Controllers
         }
 
         [HttpPost]
-        public async Task Post(User user)
+        public async Task<int> Post(User user)
         {
+            var temp = applicationDbContext.Users.FirstOrDefault(x => x.Email == user.Email);
+            if (temp != null)
+            {
+                return 0;
+            }
             applicationDbContext.Add(user);
             await applicationDbContext.SaveChangesAsync();
+            return 1;
             //return new CreatedAtRouteResult("GetUser", new { email = user.Email, password = user.Password }, user);
             
         }

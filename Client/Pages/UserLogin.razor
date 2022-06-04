@@ -3,10 +3,10 @@
 @inject NavigationManager navigationManager
 @inject IJSRuntime JsRuntime
 
-<h1 class="text-center">Subscribe</h1>
 
-<div>
 
+<div class="align-self-center">
+    <h1>Subscribe</h1>
     <div class="container">
         <div class="col-md-12">
             <table>
@@ -79,9 +79,17 @@
         try
         {
 
-            await http.PostAsJsonAsync<User>($"api/User", user);
-            Layout.Name = user.Name;
-            navigationManager.NavigateTo("/products/" + user.Name);
+            var done = await http.PostAsJsonAsync($"api/User", user);
+            if (done.Content.ReadAsStringAsync().Result.Equals("1"))
+            {
+                Layout.Name = user.Name;
+                navigationManager.NavigateTo("/products/" + user.Name);
+            }
+            else
+            {
+                await JsRuntime.InvokeVoidAsync("alert", "This email already exist!"); // Alert
+                navigationManager.NavigateTo("/");
+            }
 
         }
         catch (Exception ex)

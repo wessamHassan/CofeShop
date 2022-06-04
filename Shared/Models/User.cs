@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CofeShop.Shared.Models
 {
-    [Index(nameof(Email), IsUnique = true)]
+      
     public class User
     {
         public int Id { get; set; }
