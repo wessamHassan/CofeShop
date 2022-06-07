@@ -14,22 +14,20 @@
 <h1 class="text-center"> Welcome to Cpresso Cafe </h1>
 <div class="container">
     <div class="row">
-        <div >
+        <div>
             <table>
                 <tr>
-                    <td>
-                        <img src="img/Background_Coffee.jpg" width="300" height="200" />
+                    <td colspan="3">
+                        <img src="img/ultra_wide_coffee_coffee_beans_foam-23812.jpg" width="900" height="300" />
                     </td>
-                    <td>
-                        <img src="img/Background_Breakfast.jpg" width="300" height="200" />
-                    </td>
-                    <td>
-                        <img src="img/Background_Lunch.jpg" width="300" height="200" />
-                    </td>
+
                 </tr>
             </table>
         </div>
     </div>
+    <br />
+    <br />
+    <div class="row"></div>
     <div class="row">
         <div class="col-md-7">
             <table>
@@ -55,7 +53,7 @@
                                 <table class="table table-borderless">
                                     <tr>
                                         <td>
-                                            <label>Email: </label>
+                                            <label>Email/User Name: </label>
                                         </td>
                                         <td>
                                             <InputText @bind-Value="@user.Email"></InputText>
@@ -75,14 +73,14 @@
                                     <tr>
                                         <td colspan="2">
                                             <button style="background-color :#a83d0c" type="submit" class="btn btn-primary">Login</button>
-                                            <button style="background-color :#a83d0c" class="btn btn-primary" @onclick="Subscribe">Subscribe</button>
+                                            <button style="background-color :#a83d0c" class="btn btn-primary" @onclick="Subscribe">Register</button>
                                         </td>
 
 
                                     </tr>
 
                                 </table>
-                             </div>
+                            </div>
                         </EditForm>
                     </td>
                 </tr>
@@ -92,8 +90,8 @@
 
         </div>
     </div>
-        
-    </div>
+
+</div>
         @code {
             [CascadingParameter]
             public MainLayout Layout { get; set; }

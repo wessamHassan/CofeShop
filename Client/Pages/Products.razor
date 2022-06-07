@@ -75,23 +75,30 @@ else
 
     </div>
 
-    <button style="background-color :#a83d0c" class="btn btn-success" @onclick="CalcPrice">Total Price</button>
+    <button style="background-color :#a83d0c" class="btn btn-success" @onclick="CalcPrice">Order</button>
 
 
 </div>
 }
 @code{
-        [CascadingParameter]
-        public MainLayout Layout { get; set; }
+    [CascadingParameter]
+    public MainLayout Layout { get; set; }
 
-        [Parameter] public string Name { get; set; }
-        List<Order> orders = new List<Order>();
-        Product[] products { get; set; }
-        Order order;
-        List<decimal> prices = new List<decimal>();
-        bool orderDone = false;
+    [Parameter] public string Name { get; set; }
+    List<Order> orders = new List<Order>();
+    Product[] products { get; set; }
+    Order order;
+    List<decimal> prices = new List<decimal>();
+    bool orderDone = false;
     //List<OrderDto> ordersList;
 
+    protected override void OnInitialized()
+    {
+        if (Name.Equals("-"))
+            Name = Layout.Name;
+        else
+            Layout.Name = Name;
+    }
     protected override async Task OnInitializedAsync()
     {
         if (Name.Equals("-"))
@@ -120,11 +127,11 @@ else
             {
                 orders.Remove(temp);
             }
-           
+
             order.Count = count;
             order.ProductId = pid;
             orders.Add(order);
-            
+
 
 
 
