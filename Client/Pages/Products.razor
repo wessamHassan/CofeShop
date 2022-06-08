@@ -110,22 +110,21 @@ else
     }
     protected override void OnAfterRender(bool firstRender)
     {
+        //Name = Layout.Name;
+        //if(firstRender)
+        //    navigationManager.NavigateTo("products/" + Layout.Name);
         //base.OnAfterRender(firstRender);
-        if (firstRender)
-        {
-
-            //Layout.HasRendered = true;
-            StateHasChanged();
-
-        }
-        base.OnAfterRender(firstRender);
-        //else
+        //if (firstRender)
         //{
-        //    if (Name.Equals("-"))
-        //        Name = Layout.Name;
-        //    else
-        //        Layout.Name = Name;
+
+        //    navigationManager.NavigateTo("products/" + Name);
+        //    //Name = Layout.Name;
+        //    //StateHasChanged();
+
         //}
+        //Name = Layout.Name;
+        //return base.OnAfterRenderAsync(firstRender);
+
 
     }
     void CountSelected(ChangeEventArgs e)

@@ -14,11 +14,11 @@
 <h1 class="text-center"> Welcome to Cpresso Cafe </h1>
 <div class="container">
     <div class="row">
-        <div>
+        <div class="col-md-12">
             <table>
                 <tr>
-                    <td colspan="3">
-                        <img src="img/ultra_wide_coffee_coffee_beans_foam-23812.jpg" width="1000" height="300" />
+                    <td >
+                        <img src="img/ultra_wide_coffee_coffee_beans_foam-23812.jpg" width="955" height="300" />
                     </td>
 
                 </tr>
@@ -28,8 +28,8 @@
     <br />
     <br />
     <div class="row"></div>
-    <div class="row">
-        <div class="col-md-7">
+    <div  class="row" >
+        <div class="col-md-6" style="justify-content:left; align-content:initial" >
             <table>
                 <tr>
                     <td>
@@ -43,7 +43,7 @@
                 </tr>
             </table>
         </div>
-        <div class="col-md-4 form-group">
+        <div class="col-md-5 form-group">
             <table>
                 <tr>
                     <td>
@@ -53,8 +53,10 @@
                                 <table class="table table-borderless">
                                     <tr>
                                         <td>
-                                            <label>Email/User Name: </label>
-                                        </td>
+                                            <label>Email/  User Name: </label>
+                                            
+                                           
+</td>
                                         <td>
                                             <InputText @bind-Value="@user.Email"></InputText>
                                             <ValidationMessage For="@(() => user.Email)" />
