@@ -103,30 +103,37 @@ else
     {
         if (Name.Equals("-"))
             Name = Layout.Name;
-        else
-            Layout.Name = Name;
+        //else
+        //    Layout.Name = Name;
         //Console.WriteLine("xxxx" + Layout.Name);
         products = await http.GetFromJsonAsync<Product[]>("api/Product");
     }
-    protected override void OnAfterRender(bool firstRender)
+    protected override void OnParametersSet()
     {
-        //Name = Layout.Name;
-        //if(firstRender)
-        //    navigationManager.NavigateTo("products/" + Layout.Name);
-        //base.OnAfterRender(firstRender);
-        //if (firstRender)
-        //{
 
-        //    navigationManager.NavigateTo("products/" + Name);
-        //    //Name = Layout.Name;
-        //    //StateHasChanged();
-
-        //}
-        //Name = Layout.Name;
-        //return base.OnAfterRenderAsync(firstRender);
-
-
+        if (Name.Equals("-"))
+            Name = Layout.Name;
     }
+    //protected override void OnAfterRender(bool firstRender)
+    //{
+    //    if (Name.Equals("-"))
+    //        Name = Layout.Name;
+    //    //StateHasChanged();
+
+    //    //base.OnAfterRender(firstRender);
+    //    //if (firstRender)
+    //    //{
+
+    //    //    navigationManager.NavigateTo("products/" + Name);
+    //    //    //Name = Layout.Name;
+    //    //    //StateHasChanged();
+
+    //    //}
+    //    //Name = Layout.Name;
+    //    //return base.OnAfterRenderAsync(firstRender);
+
+
+    //}
     void CountSelected(ChangeEventArgs e)
     {
         order = new Order();

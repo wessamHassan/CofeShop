@@ -13,9 +13,11 @@ namespace CofeShop.Shared.Models
     {
         public int Id { get; set; }
 
+        [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Use letters only please")]
         public string Name { get; set; }
 
-        [Required]        
+        [Required]  
+        
         public string Email { get; set; }
         [Required]
         [DataType(DataType.Password)]
