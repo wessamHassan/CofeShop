@@ -10,7 +10,7 @@
 }
 else
 {
-<h1 class="text-center">Welcome @Name !</h1>
+<h1 class="text-center">Welcome @Name </h1>
 <div class="container">
 
     <div class="row">
@@ -24,7 +24,7 @@ else
         {
             foreach (var product in products)
             {
-                <div class="col-sm-4 p-2">
+                <div class="col-sm-4 p-2 ">
                     <div class="card">
                         <div class="d-flex justify-content-center p-2">
                             <img src="img/@product.ImageUrl" height="150" width="235" />
@@ -39,7 +39,7 @@ else
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p class="card-text">@product.Description </p>
+                                        <h8 class="card-text">@product.Description </h8>
                                     </td>
                                 </tr>
                                 <tr>
@@ -92,13 +92,13 @@ else
     bool orderDone = false;
     //List<OrderDto> ordersList;
 
-    protected override void OnInitialized()
-    {
-        if (Name.Equals("-"))
-            Name = Layout.Name;
-        else
-            Layout.Name = Name;
-    }
+    //protected override void OnInitialized()
+    //{
+    //    if (Name.Equals("-"))
+    //        Name = Layout.Name;
+    //    else
+    //        Layout.Name = Name;
+    //}
     protected override async Task OnInitializedAsync()
     {
         if (Name.Equals("-"))
@@ -107,6 +107,26 @@ else
             Layout.Name = Name;
         //Console.WriteLine("xxxx" + Layout.Name);
         products = await http.GetFromJsonAsync<Product[]>("api/Product");
+    }
+    protected override void OnAfterRender(bool firstRender)
+    {
+        //base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+
+            //Layout.HasRendered = true;
+            StateHasChanged();
+
+        }
+        base.OnAfterRender(firstRender);
+        //else
+        //{
+        //    if (Name.Equals("-"))
+        //        Name = Layout.Name;
+        //    else
+        //        Layout.Name = Name;
+        //}
+
     }
     void CountSelected(ChangeEventArgs e)
     {
@@ -148,7 +168,10 @@ else
             await http.PostAsJsonAsync("api/Order", orders);
             navigationManager.NavigateTo("/orderView/" + Name);
         }
-
+        else
+        {
+            await JsRuntime.InvokeVoidAsync("alert", "Please choose order first!"); // Alert
+        }
 
     }
 
